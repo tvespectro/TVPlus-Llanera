@@ -4,10 +4,12 @@ import { Search, Play, Plus, Info, Star, Bookmark, Tv, Film, Home, User, X, Chev
 import { tmdb, llaneraApi, gemini } from './services/api';
 import { Movie, Review, WishlistItem } from './types';
 import { LivePlayer } from './components/LivePlayer';
+import { WelcomePage } from './components/WelcomePage';
 
 const USER_EMAIL = "fidelalvaradot@gmail.com"; // From context
 
 export default function App() {
+  const [showWelcome, setShowWelcome] = useState(true);
   const [trending, setTrending] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
@@ -87,6 +89,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg text-white selection:bg-brand selection:text-white">
+      <AnimatePresence>
+        {showWelcome && (
+          <WelcomePage onFinish={() => setShowWelcome(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass px-4 md:px-12 py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
